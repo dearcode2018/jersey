@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/tx	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	" default-lazy-init="true">
+
+
+	
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" 
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 事务拦截器: 使用拦截器而不是aop-->
+	<bean id="transactionInterceptor" 
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<!-- 事务属性 -->
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED, -Exception</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="tx*">PROPAGATION_REQUIRED</prop>
+				<prop key="operate*">PROPAGATION_REQUIRED, -Exception</prop>
+				<prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+			</props>	
+		</property>
+	</bean>
+
+	<!-- 事务代理 -->
+	<bean id="transactionProxy" 
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<!-- 指定dao层 -->
+		<property name="beanNames">
+			<list>
+				<value>com.hua.**.dao.**.*Dao</value>
+			</list>
+		</property>	
+		<!-- 指定事务拦截器 -->
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 可以将这个“共享的”，“安全的”实例注入到不同的DAO类中去 -->
+	<!-- JdbcTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+
+
+
+
+
+</beans>

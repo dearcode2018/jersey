@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>excelImport</title>
+	<!-- http://127.0.0.1:8080/poi-springmvc/views/excelImport.html -->
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<!-- JavaScript part -->
+	<script type="text/javascript" lang="JavaScript">
+	
+		/* 页面通用部分 */
+		
+	</script>	
+	<style type="text/css">
+		#login
+		{
+			width:400px;
+			height: 200px;
+			position:absolute; 
+			top: 50%;
+			left: 50%;
+			margin:-100px 0 0 -200px;
+			border:1px solid red; 
+			background-color: #097;
+		}
+		
+		#header
+		{
+			background-color: yellow;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			/* 文本居中对齐 */
+			text-align: center;
+		}
+		
+		#username
+		{
+			margin-bottom: 20px;
+		}
+		
+		#password
+		{
+			margin-bottom: 20px;
+		}
+		
+		#loginBtn
+		{
+		
+		}								
+	</style>
+  </head>
+  
+  <body>
+	<form action="/jersey-poi/rest/import/do" method="post" enctype="multipart/form-data">
+		<div id="login">
+			<div id="header">Excel导入</div>
+			<div id="username">excel <input id="uploadFile" type="file" name="uploadFile" /></div>
+			<div id="loginBtn">
+				<div style="float:right; margin-right: 10px;"><input type="reset" value="重置" /></div>
+				<div style="float:right; margin-right: 10px;"><input type="submit" value="导入" /></div>
+			</div>
+		</div>	
+	</form>
+
+
+	<script type="text/javascript" lang="javascript">
+	</script>
+  </<body>
+</html>
